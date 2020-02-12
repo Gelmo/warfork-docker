@@ -43,4 +43,4 @@ RUN mkdir server
 
 COPY entrypoint.sh /usr/local/bin/
 
-CMD [ "entrypoint.sh" ]
+CMD [ "bash", "/usr/local/bin/entrypoint.sh" ]
