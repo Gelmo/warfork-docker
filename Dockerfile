@@ -24,6 +24,8 @@ RUN apt-get update \
     unzip \
     bsdmainutils \
     libcurl4 \
+    libcurl3-gnutls \
+    libcurl4-gnutls-dev \
     && rm -rf /var/lib/apt/lists/*
 
 RUN useradd -m warfork
