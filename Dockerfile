@@ -23,6 +23,7 @@ RUN apt-get update \
     gzip \
     unzip \
     bsdmainutils \
+    libcurl4 \
     && rm -rf /var/lib/apt/lists/*
 
 RUN useradd -m warfork
