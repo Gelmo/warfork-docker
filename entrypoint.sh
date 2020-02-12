@@ -18,7 +18,7 @@ installServer() {
   $STEAM_DIR/steamcmd.sh \
     +login anonymous \
     +force_install_dir $SERVER_DIR \
-    +app_update 1136510 validate \
+    +app_update 671610 validate \
     +quit
 
   echo '> Done'
@@ -56,7 +56,7 @@ updateServer() {
   $STEAM_DIR/steamcmd.sh \
     +login anonymous \
     +force_install_dir $HOME/server \
-    +app_update 1136510 \
+    +app_update 671610 \
     +quit
 
   echo '> Done'
