@@ -22,7 +22,6 @@ RUN apt-get update \
     bzip2 \
     gzip \
     unzip \
-    bsdmainutil \
     && rm -rf /var/lib/apt/lists/*
 
 RUN useradd -m warfork
