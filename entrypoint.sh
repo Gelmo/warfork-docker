@@ -6,18 +6,15 @@ set -x
 
 shopt -s extglob
 
-STEAM_DIR=$HOME/Steam
-SERVER_DIR=$HOME/server
-SERVER_INSTALLED_LOCK_FILE=$SERVER_DIR/installed.lock
-WF_DIR=$SERVER_DIR/Warfork.app/Contents/Resources/basewf
+SERVER_INSTALLED_LOCK_FILE=/home/warfork/server/installed.lock
 WF_CUSTOM_CONFIGS_DIR="${WF_CUSTOM_CONFIGS_DIR-/var/wf}"
 
 installServer() {
   echo '> Installing server ...'
 
-  $STEAM_DIR/steamcmd.sh \
+  /home/warfork/Steam/steamcmd.sh \
     +login anonymous \
-    +force_install_dir $SERVER_DIR \
+    +force_install_dir /home/warfork/server \
     +app_update 1136510 validate \
     +quit
 
@@ -32,7 +29,7 @@ applyCustomConfigs() {
 
   if [ -d "$WF_CUSTOM_CONFIGS_DIR" ]; then
       echo '> Found custom configs, applying ...'
-      rsync -ri $WF_CUSTOM_CONFIGS_DIR/ $WF_DIR
+      rsync -ri $WF_CUSTOM_CONFIGS_DIR/ /home/warfork/server/Warfork.app/Contents/Resources/basewf/
       echo '> Done'
   else
       echo '> No custom configs found to apply'
@@ -44,7 +41,7 @@ startServer() {
 
   optionalParameters=""
 
-  $SERVER_DIR/Warfork.app/Contents/Resources/wf_server.x86_64 \
+  /home/warfork/server/Warfork.app/Contents/Resources/wf_server.x86_64 \
       $optionalParameters \
       $WF_PARAMS
 
@@ -53,9 +50,9 @@ startServer() {
 updateServer() {
   echo '> Checking for server update ...'
 
-  $STEAM_DIR/steamcmd.sh \
+  /home/warfork/Steam/steamcmd.sh \
     +login anonymous \
-    +force_install_dir $HOME/server \
+    +force_install_dir /home/warfork/server \
     +app_update 1136510 \
     +quit
 
