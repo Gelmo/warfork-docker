@@ -5,7 +5,7 @@ Warfork server on Docker!
 
 ```
 $ docker run \
-  -v=wf:/home/wf/server \
+  -v=wf:/home/warfork/server \
   --net=host \
   gelmo/warfork-docker
 ```
@@ -71,7 +71,7 @@ Mount `/home/user/wf` to [`WF_CUSTOM_CONFIGS_DIR`](#wf_custom_configs_dir) in th
 
 ```
 $ docker run \
-  -v=wf:/home/wf/server \
+  -v=wf:/home/warfork/server \
   -v=/home/user/wf:/var/wf \ # Mount the custom configs directory
   --net=host \
   gelmo/warfork-docker
