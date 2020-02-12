@@ -41,7 +41,9 @@ startServer() {
 
   optionalParameters=""
 
-  /home/warfork/server/Warfork.app/Contents/Resources/wf_server.x86_64 \
+  cd /home/warfork/server/Warfork.app/Contents/Resources/
+
+  ./wf_server.x86_64 \
       $optionalParameters \
       $WF_PARAMS
 
