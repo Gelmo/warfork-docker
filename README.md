@@ -15,24 +15,6 @@ $ docker run \
 
 ### Environment Variables
 
-##### `WF_IP`
-
-Default: `0.0.0.0`
-
-The IP the server is assigned to. In most cases the default value is sufficient, but if you want to run WFTV or have issues connecting to the server, the actual IP of the server should be set.
-
-##### `WF_PORT`
-
-Default: `44400`
-
-The port the server is listening to.
-
-##### `WF_HOSTNAME`
-
-Default: `Warfork Server`
-
-The server name.
-
 ##### `WF_CUSTOM_CONFIGS_DIR`
 
 Default: `/var/wf`
@@ -41,11 +23,11 @@ Absolute path to a directory in the container containing custom config and map f
 
 ##### `WF_PARAMS`
 
-Additional [parameters](LinkToWiki) to pass to `wf_server.x86_64`.
+Additional [parameters](https://warforkwiki.com/index.php?title=Console_Commands) to pass to `wf_server.x86_64` (for example, +sv_hostname "Insta Server" +g_instagib "1").
 
 ### Populate with Own Configs
 
-The server can be populated with own config files by copying the files from the custom configs directory located at [`WF_CUSTOM_CONFIGS_DIR`](#wf_custom_configs_dir) to the `basewf` folder at each start of the container. [`WF_CUSTOM_CONFIGS_DIR`](#wf_custom_configs_dir) is a mounted directory from the host system. The custom configs directory must have same folder structure as the `basewf` folder in order to add or overwrite the files at the paths.
+The server can be populated with your own config files and maps by copying the files from the custom configs directory located at [`WF_CUSTOM_CONFIGS_DIR`](#wf_custom_configs_dir) to the `basewf` folder at each start of the container. [`WF_CUSTOM_CONFIGS_DIR`](#wf_custom_configs_dir) is a mounted directory from the host system. The custom configs directory must have same folder structure as the `basewf` folder in order to add or overwrite the files at the paths.
 
 #### Example
 
@@ -92,3 +74,6 @@ Container named `wf`:
 ```
 $ docker restart wf
 ```
+
+### Multiple Instances (More Info Soon)
+
