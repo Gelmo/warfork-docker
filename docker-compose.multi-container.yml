@@ -1,0 +1,45 @@
+version: '2'
+
+services:
+  warfork1:
+    image: gelmo/warfork-docker:latest
+    working_dir: /home/warfork/server/Warfork.app/Contents/Resources
+    user: warfork
+    command: ["bash", "/usr/local/bin/entrypoint.sh"]
+    restart: always
+    network_mode: "host"
+    environment:
+      - PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
+      - WF_PARAMS=+exec dedicated_autoexec.cfg
+    volumes:
+      - wfserver_vol:/home/warfork/server
+      - /path/to/custom/basewf:/var/wf
+  warfork2:
+    image: gelmo/warfork-docker:latest
+    working_dir: /home/warfork/server/Warfork.app/Contents/Resources
+    user: warfork
+    command: ["wait-for-it", "--host=SERVER_IP", "--port=44450", "--timeout=0", "--", "bash", "/usr/local/bin/entrypoint.sh"]
+    restart: always
+    network_mode: "host"
+    environment:
+      - PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
+      - WF_PARAMS=+exec instagib.cfg
+    volumes:
+      - wfserver_vol:/home/warfork/server
+      - /path/to/custom/basewf:/var/wf
+  warfork3:
+    image: gelmo/warfork-docker:latest
+    working_dir: /home/warfork/server/Warfork.app/Contents/Resources
+    user: warfork
+    command: ["wait-for-it", "--host=SERVER_IP", "--port=44450", "--timeout=0", "--", "bash", "/usr/local/bin/entrypoint.sh"]
+    restart: always
+    network_mode: "host"
+    environment:
+      - PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
+      - WF_PARAMS=+exec clanarena.cfg
+    volumes:
+      - wfserver_vol:/home/warfork/server
+      - /path/to/custom/basewf:/var/wf
+
+volumes:
+  wfserver_vol:
