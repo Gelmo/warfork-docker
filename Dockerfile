@@ -26,6 +26,7 @@ RUN apt-get update \
     libcurl4 \
     libcurl3-gnutls \
     libcurl4-gnutls-dev \
+    wait-for-it \
     && rm -rf /var/lib/apt/lists/*
 
 RUN useradd -m warfork
