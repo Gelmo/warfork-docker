@@ -29,7 +29,7 @@ RUN apt-get update \
     wait-for-it \
     && rm -rf /var/lib/apt/lists/*
 
-RUN useradd -m warfork
+RUN groupadd -r -g 999 warfork && useradd -r -m -g warfork -u 999 warfork
 
 USER warfork
 
