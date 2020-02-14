@@ -13,6 +13,7 @@ services:
       - WF_PARAMS=+exec dedicated_autoexec.cfg
     volumes:
       - wfserver_vol:/home/warfork/server
+      - wflogs_vol:/home/warfork/.local/share/warfork-2.1/basewf
       - /path/to/custom/basewf:/var/wf
   warfork2:
     image: gelmo/warfork-docker:latest
@@ -26,6 +27,7 @@ services:
       - WF_PARAMS=+exec instagib.cfg
     volumes:
       - wfserver_vol:/home/warfork/server
+      - wflogs_vol:/home/warfork/.local/share/warfork-2.1/basewf
       - /path/to/custom/basewf:/var/wf
   warfork3:
     image: gelmo/warfork-docker:latest
@@ -39,7 +41,9 @@ services:
       - WF_PARAMS=+exec clanarena.cfg
     volumes:
       - wfserver_vol:/home/warfork/server
+      - wflogs_vol:/home/warfork/.local/share/warfork-2.1/basewf
       - /path/to/custom/basewf:/var/wf
 
 volumes:
   wfserver_vol:
+  wflogs_vol:

@@ -6,11 +6,13 @@ Warfork server on Docker!
 ```
 $ docker run \
   -v=wf:/home/warfork/server \
+  -v=/path/to/wflogs:/home/warfork/.local/share/warfork-2.1/basewf \
   --net=host \
   gelmo/warfork-docker
 ```
 
 - The server will be installed on a named volume `wf` to [persist the server files](https://docs.docker.com/storage/).
+- The server's logs and demos directory will be mapped to the `/path/to/wflogs` directory to [persist the logs and demos](https://docs.docker.com/storage/).
 - The server will be running on the `host` network for [optimal network performance](https://docs.docker.com/network/host/)
 
 ### Environment Variables
@@ -54,6 +56,7 @@ Mount `/home/user/wf` to [`WF_CUSTOM_CONFIGS_DIR`](#wf_custom_configs_dir) in th
 ```
 $ docker run \
   -v=wf:/home/warfork/server \
+  -v=/path/to/wflogs:/home/warfork/.local/share/warfork-2.1/basewf \
   -v=/home/user/wf:/var/wf \ # Mount the custom configs directory
   --net=host \
   gelmo/warfork-docker
