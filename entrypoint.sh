@@ -29,7 +29,7 @@ applyCustomConfigs() {
 
   if [ -d "$WF_CUSTOM_CONFIGS_DIR" ]; then
       echo '> Found custom configs, applying ...'
-      rsync -ri $WF_CUSTOM_CONFIGS_DIR/ /home/warfork/server/Warfork.app/Contents/Resources/basewf/
+      rsync -rti $WF_CUSTOM_CONFIGS_DIR/ /home/warfork/server/Warfork.app/Contents/Resources/basewf/
       echo '> Done'
   else
       echo '> No custom configs found to apply'
