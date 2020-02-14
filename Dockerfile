@@ -47,6 +47,8 @@ RUN mkdir server
 
 COPY entrypoint.sh /usr/local/bin/
 
+COPY entrypointtv.sh /usr/local/bin/
+
 WORKDIR /home/warfork/server/Warfork.app/Contents/Resources
 
 CMD [ "bash", "/usr/local/bin/entrypoint.sh" ]
