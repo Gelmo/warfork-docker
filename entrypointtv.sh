@@ -15,6 +15,7 @@ installServer() {
   /home/warfork/Steam/steamcmd.sh \
     +login anonymous \
     +force_install_dir /home/warfork/server \
+    +app_license_request 1145510 \
     +app_update 1145510 validate \
     +quit
 
@@ -55,6 +56,7 @@ updateServer() {
   /home/warfork/Steam/steamcmd.sh \
     +login anonymous \
     +force_install_dir /home/warfork/server \
+    +app_license_request 1145510 \
     +app_update 1145510 \
     +quit
 
