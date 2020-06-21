@@ -15,7 +15,7 @@ installServer() {
   /home/warfork/Steam/steamcmd.sh \
     +login anonymous \
     +force_install_dir /home/warfork/server \
-    +app_update 1136510 validate \
+    +app_update 1145510 validate \
     +quit
 
   echo '> Done'
@@ -55,7 +55,7 @@ updateServer() {
   /home/warfork/Steam/steamcmd.sh \
     +login anonymous \
     +force_install_dir /home/warfork/server \
-    +app_update 1136510 \
+    +app_update 1145510 \
     +quit
 
   echo '> Done'
