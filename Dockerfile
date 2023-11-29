@@ -1,13 +1,13 @@
-FROM debian:buster-slim
+FROM debian:bullseye-slim
 
 RUN apt-get update \
     && apt-get install -y --no-install-recommends \
-    lib32gcc1=1:8.3.0-6 \
-    lib32stdc++6=8.3.0-6 \
-    wget=1.20.1-1.1 \
-    ca-certificates=20190110 \
-    rsync=3.1.3-6 \
-    unzip=6.0-23+deb10u1 \
+    lib32gcc-s1 \
+    lib32stdc++6 \
+    wget \
+    ca-certificates \
+    rsync \
+    unzip \
     tmux \
     jq \
     bc \
