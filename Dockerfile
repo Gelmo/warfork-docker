@@ -1,4 +1,4 @@
-FROM debian:bullseye-slim
+FROM debian:bookworm-slim
 
 RUN apt-get update \
     && apt-get install -y --no-install-recommends \
@@ -14,7 +14,7 @@ RUN apt-get update \
     binutils \
     ca-certificates \
     util-linux \
-    python \
+    python3 \
     curl \
     wget \
     file \
@@ -27,23 +27,24 @@ RUN apt-get update \
     libcurl3-gnutls \
     libcurl4-gnutls-dev \
     wait-for-it \
-    && rm -rf /var/lib/apt/lists/*
-
-RUN groupadd -r -g 999 warfork && useradd -r -m -g warfork -u 999 warfork
+    cron \
+    sudo \
+    vim \
+    locales \
+    && sed -i -e 's/# en_US.UTF-8 UTF-8/en_US.UTF-8 UTF-8/' /etc/locale.gen \
+    && dpkg-reconfigure --frontend=noninteractive locales \
+    && rm -rf /var/lib/apt/lists/* \
+    && groupadd -r -g 999 warfork && useradd -r -m -g warfork -u 999 warfork
 
 USER warfork
 
-RUN mkdir /home/warfork/Steam
+RUN mkdir /home/warfork/Steam && \
+    mkdir /home/warfork/server
 
 WORKDIR /home/warfork/Steam
 
-RUN wget -qO- https://steamcdn-a.akamaihd.net/client/installer/steamcmd_linux.tar.gz | tar zxf -
-
-RUN /home/warfork/Steam/steamcmd.sh +quit
-
-WORKDIR /home/warfork
-
-RUN mkdir server
+RUN wget -qO- https://steamcdn-a.akamaihd.net/client/installer/steamcmd_linux.tar.gz | tar zxf - \
+    && /home/warfork/Steam/steamcmd.sh +quit
 
 COPY entrypoint.sh /usr/local/bin/
 
