@@ -2,71 +2,113 @@
 
 set -e
 
-set -x
+if [ "${DEBUG}" = "true" ]; then
+  set -x
+fi
 
 shopt -s extglob
 
-SERVER_INSTALLED_LOCK_FILE=/home/warfork/server/installed.lock
-WF_CUSTOM_CONFIGS_DIR="${WF_CUSTOM_CONFIGS_DIR-/var/wf}"
+steam_dir="${HOME}/Steam"
+server_dir="${HOME}/server"
+server_installed_lock_file="${server_dir}/installed.lock"
+wf_dir="${server_dir}/Warfork.app/Contents/Resources/basewf"
+wf_custom_configs_dir="${WF_CUSTOM_CONFIGS_DIR-"/var/wf"}"
 
-installServer() {
+install() {
   echo '> Installing server ...'
 
-  /home/warfork/Steam/steamcmd.sh \
+  set -x
+
+  $steam_dir/steamcmd.sh \
+    +force_install_dir $server_dir \
     +login anonymous \
-    +force_install_dir /home/warfork/server \
     +app_update 1136510 validate \
     +quit
 
+  set +x
+
   echo '> Done'
 
-  touch $SERVER_INSTALLED_LOCK_FILE
-
+  touch $server_installed_lock_file
 }
 
-applyCustomConfigs() {
-  echo "> Checking for custom configs at \"$WF_CUSTOM_CONFIGS_DIR\" ..."
+sync_custom_files() {
+  echo "> Checking for custom files at \"$wf_custom_configs_dir\" ..."
 
-  if [ -d "$WF_CUSTOM_CONFIGS_DIR" ]; then
-      echo '> Found custom configs, applying ...'
-      rsync -rti $WF_CUSTOM_CONFIGS_DIR/ /home/warfork/server/Warfork.app/Contents/Resources/basewf/
-      echo '> Done'
+  if [ -d "$wf_custom_configs_dir" ]; then
+    echo "> Found custom files. Syncing with \"${wf_dir}\" ..."
+
+    set -x
+
+    cp -asf $wf_custom_configs_dir/* $wf_dir # Copy custom files as soft links
+    find $wf_dir -xtype l -delete            # Find and delete broken soft links
+
+    set +x
+
+    echo '> Done'
   else
-      echo '> No custom configs found to apply'
+    echo '> No custom files found'
   fi
 }
 
-startServer() {
+start() {
   echo '> Starting server ...'
 
   optionalParameters=""
 
-  cd /home/warfork/server/Warfork.app/Contents/Resources/
+  cd $wf_dir/..
 
-  ./wftv_server.x86_64 \
+  set -x
+
+  exec ./wftv_server.x86_64 \
       $optionalParameters \
       $WF_PARAMS
-
 }
 
-updateServer() {
-  echo '> Checking for server update ...'
+update() {
+  if [ "${VALIDATE_SERVER_FILES-"false"}" = "true" ]; then
+    echo '> Validating server files and checking for server update ...'
+  else
+    echo '> Checking for server update ...'
+  fi
 
-  /home/warfork/Steam/steamcmd.sh \
-    +login anonymous \
-    +force_install_dir /home/warfork/server \
-    +app_update 1136510 \
-    +quit
+  if [ "${VALIDATE_SERVER_FILES-"false"}" = "true" ]; then
+    set -x
+
+    $steam_dir/steamcmd.sh \
+      +force_install_dir $server_dir \
+      +login anonymous \
+      +app_update 1136510 validate \
+      +quit
+
+    set +x
+  else
+    set -x
+
+    $steam_dir/steamcmd.sh \
+      +force_install_dir $server_dir \
+      +login anonymous \
+      +app_update 1136510 \
+      +quit
+
+    set +x
+  fi
 
   echo '> Done'
 }
 
-if [ -f "$SERVER_INSTALLED_LOCK_FILE" ]; then
-  updateServer
+install_or_update() {
+  if [ -f "$server_installed_lock_file" ]; then
+    update
+  else
+    install
+  fi
+}
+
+if [ ! -z $1 ]; then
+  $1
 else
-  installServer
+  install_or_update
+  sync_custom_files
+  start
 fi
-
-applyCustomConfigs
-
-startServer

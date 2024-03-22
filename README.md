@@ -62,6 +62,20 @@ $ docker run \
   gelmo/warfork-docker
 ```
 
+### Other
+
+##### `VALIDATE_SERVER_FILES`
+
+Default: `false`
+
+Validate and restore missing/broken server files on container start. Can be enabled with `true`.
+
+##### `DEBUG`
+
+Default: `false`
+
+Print all executed commands for better debugging.
+
 ### Updating the Server
 
 Once the server has been installed, the container will check for an update at every start.
