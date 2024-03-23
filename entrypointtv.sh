@@ -11,7 +11,7 @@ shopt -s extglob
 steam_dir="${HOME}/Steam"
 server_dir="${HOME}/server"
 server_installed_lock_file="${server_dir}/installed.lock"
-wf_dir="${server_dir}/Warfork.app/Contents/Resources/basewf"
+wf_dir="${server_dir}/basewf"
 wf_custom_configs_dir="${WF_CUSTOM_CONFIGS_DIR-"/var/wf"}"
 
 install() {
