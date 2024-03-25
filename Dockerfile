@@ -38,13 +38,17 @@ RUN apt-get update \
 
 USER warfork
 
-RUN mkdir /home/warfork/Steam && \
-    mkdir /home/warfork/server
+RUN mkdir -p /home/warfork/Steam && \
+    mkdir -p /home/warfork/server && \
+    mkdir -p /home/warfork/.steam
 
 WORKDIR /home/warfork/Steam
 
 RUN wget -qO- https://steamcdn-a.akamaihd.net/client/installer/steamcmd_linux.tar.gz | tar zxf - \
     && /home/warfork/Steam/steamcmd.sh +quit
+
+RUN ln -s /home/warfork/Steam/linux64 /home/warfork/.steam/sdk64 && \
+    ln -s /home/warfork/Steam/linux32 /home/warfork/.steam/sdk32
 
 COPY entrypoint.sh /usr/local/bin/
 
