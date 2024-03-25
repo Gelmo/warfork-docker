@@ -1,5 +1,7 @@
 FROM debian:bookworm-slim
 
+RUN echo "Unique string to improperly force a fresh build at docker hub - v1"
+
 RUN apt-get update \
     && apt-get install -y --no-install-recommends \
     lib32gcc-s1 \
