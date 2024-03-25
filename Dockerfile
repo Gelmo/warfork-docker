@@ -56,6 +56,4 @@ COPY entrypoint.sh /usr/local/bin/
 
 COPY entrypointtv.sh /usr/local/bin/
 
-WORKDIR /home/warfork/server
-
 CMD [ "bash", "/usr/local/bin/entrypoint.sh" ]
