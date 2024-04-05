@@ -33,10 +33,14 @@ RUN apt-get update \
     sudo \
     vim \
     locales \
+    gdb \
     && sed -i -e 's/# en_US.UTF-8 UTF-8/en_US.UTF-8 UTF-8/' /etc/locale.gen \
     && dpkg-reconfigure --frontend=noninteractive locales \
     && rm -rf /var/lib/apt/lists/* \
     && groupadd -r -g 999 warfork && useradd -r -m -g warfork -u 999 warfork
+
+RUN ulimit -c unlimited \
+    && mkdir -p /tmp/core
 
 USER warfork
 
