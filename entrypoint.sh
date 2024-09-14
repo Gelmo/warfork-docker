@@ -11,6 +11,7 @@ shopt -s extglob
 steam_dir="${HOME}/Steam"
 server_dir="${HOME}/server"
 server_installed_lock_file="${server_dir}/installed.lock"
+use_static_server_file="${server_dir}/static.lock"
 wf_dir="${server_dir}/basewf"
 wf_custom_configs_dir="${WF_CUSTOM_CONFIGS_DIR-"/var/wf"}"
 
@@ -98,11 +99,19 @@ update() {
 }
 
 install_or_update() {
-  if [ -f "$server_installed_lock_file" ]; then
-    update
-  else
-    install
-  fi
+  i=0
+
+  while [[ $i -eq 0 ]] 
+  do
+    if [ -f "$use_static_server_file" ]; then
+      break
+    elif [ -f "$server_installed_lock_file" ]; then
+      update
+    else
+      install
+    fi
+    ((i++))
+  done
 }
 
 if [ ! -z $1 ]; then
