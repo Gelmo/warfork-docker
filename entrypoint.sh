@@ -22,7 +22,7 @@ install() {
   $steam_dir/steamcmd.sh \
     +force_install_dir $server_dir \
     +login anonymous \
-    "+app_update 1136510 -beta beta -betapassword internaltest validate" \
+    "+app_update 1136510 -beta beta validate" \
     +quit
 
   set +x
@@ -78,7 +78,7 @@ update() {
     $steam_dir/steamcmd.sh \
       +force_install_dir $server_dir \
       +login anonymous \
-      "+app_update 1136510 -beta beta -betapassword internaltest validate" \
+      "+app_update 1136510 -beta beta validate" \
       +quit
 
     set +x
@@ -88,7 +88,7 @@ update() {
     $steam_dir/steamcmd.sh \
       +force_install_dir $server_dir \
       +login anonymous \
-      "+app_update 1136510 -beta beta -betapassword internaltest" \
+      "+app_update 1136510 -beta beta" \
       +quit
 
     set +x
